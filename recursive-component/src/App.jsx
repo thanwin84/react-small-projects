@@ -107,18 +107,13 @@ function Folder({folder}){
   function handleClick(){
     setIsOpen(!isOpen)
   }
- 
+  
+  const isFolder = folder.hasOwnProperty('folders')
   return (
     <li >
       <span className='flex gap-3'>
-        {folder.folders && (
-          <Arrow isOpen={isOpen} handleOpen={handleClick} />
-        )}
-        {folder.folders ? (
-          <FaFolder className='my-auto text-gray-900' />
-        ):(
-          <FaFile className='my-auto ml-2 text-gray-700' />
-        )}
+        {isFolder && <Arrow isOpen={isOpen} handleOpen={handleClick} />}
+        <EntityType isFolder={isFolder} />
         {folder.name}
       </span>
       {isOpen && folder.folders.length > 0 && (
@@ -149,3 +144,15 @@ function Arrow({isOpen, handleOpen}){
   </>)
 }
 
+function EntityType({isFolder}){
+  return (
+    <>
+      {
+        isFolder ? (
+        <FaFolder className='my-auto text-gray-900' />
+      ):(
+        <FaFile className='my-auto ml-2 text-gray-700' />
+      )}
+    </>
+  )
+}
